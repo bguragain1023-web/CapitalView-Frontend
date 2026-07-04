@@ -6,16 +6,19 @@ import { FinanceTips } from "../components/FinanceTips";
 
 const SignUp = () => {
   return (
-    <Container className="p-5 border border-danger m-5">
-      <Row>
-        <Col className="border border-danger">
-          <FinanceTips />
-        </Col>
-        <Col>
-          <SignUPForm />
-        </Col>
-      </Row>
-    </Container>
+    <div className="  ">
+      <h1 className="header">Register your Account</h1>
+      <Container className="p-5  signup-box   ">
+        <Row className="d-flex align-items-center">
+          <Col md={6}>
+            <FinanceTips />
+          </Col>
+          <Col md={6}>
+            <SignUPForm />
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 

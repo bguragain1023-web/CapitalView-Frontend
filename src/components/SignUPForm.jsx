@@ -1,29 +1,67 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { CustomInput } from "./CustomInput";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const SignUPForm = () => {
+  const [form, setForm] = useState({});
+
+  const inputFields = [
+    {
+      label: "Full Name",
+      type: "text",
+      placeholder: "eg: John Doe",
+      required: true,
+      name: "name",
+    },
+    {
+      label: "Email",
+      type: "email",
+      placeholder: "eg: capital@view.com",
+      required: true,
+      name: "email",
+    },
+    {
+      label: "Password",
+      type: "password",
+      placeholder: "********",
+      required: true,
+      name: "password",
+    },
+    {
+      label: "Confirm Password",
+      type: "password",
+      placeholder: "********",
+      required: true,
+      name: "confirmPassword",
+    },
+  ];
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const { confirmPassword, ...rest } = form;
+    if (confirmPassword !== form.password) {
+      return toast.error(`Password didn't match`);
+    }
+  };
   return (
-    <div className="from-edit">
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>FUll Name</Form.Label>
-          <Form.Control type="text" placeholder="eg: John Doe" />
-        </Form.Group>
+    <div className="form-edit">
+      <Form onSubmit={handleOnSubmit}>
+        {inputFields.map((input) => (
+          <CustomInput key={input.name} {...input} onChange={handleOnChange} />
+        ))}
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
+        <Button variant="danger" type="submit">
           Submit
         </Button>
       </Form>

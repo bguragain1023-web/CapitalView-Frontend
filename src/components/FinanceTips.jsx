@@ -44,9 +44,9 @@ export const FinanceTips = () => {
   const { tip, quote, by } = showQuote;
 
   return (
-    <div>
-      <div>{tip}</div>
-      <p>
+    <div className="d-flex  flex-column gap-3 finance-box-edit ">
+      <div className="tip-focus">{tip}</div>
+      <p className="quote-focus">
         {quote} -- {by}
       </p>
     </div>

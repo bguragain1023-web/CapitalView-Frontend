@@ -2,3 +2,44 @@
     background: rgba(214, 212, 212, 0.622);
     min-height:100vh;
 }
+
+/* singUp pages */
+.signup-box{
+    background: rgba(21, 21, 21, 0.901) ;
+    border-radius: 20px;;
+}
+
+.header{
+    text-align: center;
+    padding:10px;
+    color:rgba(28, 25, 25, 0.884);
+    font-size: 3rem;
+    font-weight: bolder;
+}
+
+/* signUp form component */
+
+.form-edit{
+    background: rgba(3, 185, 3, 0.475);
+    padding:30px;
+    color: rgba(255, 255, 255, 0.855);
+    font-size:1.6rem;
+    border-radius:20px;
+}
+
+/* financetips componenet */
+.finance-box-edit {
+   
+    height:100%;
+}
+
+.tip-focus {
+    font-size: 33px;
+    color:rgba(226, 219, 219, 0.849);
+    font-weight: bolder;;
+}
+.quote-focus{
+   color:rgba(210, 204, 204, 0.573);
+   font-style: italic;
+   font-size:25px;
+}
