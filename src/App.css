@@ -43,3 +43,29 @@
    font-style: italic;
    font-size:25px;
 }
+
+/* Navbar */
+
+.nav-link{
+
+    color: black;
+    transition: all .3s ease-in;
+
+}
+
+.nav-link:hover{
+    transform: scale(1.2);
+}
+
+/* outletpage */
+
+.main{
+    min-height: 90vh;;
+}
+
+/* footer */
+
+.footer a{
+text-decoration: none;
+
+}
