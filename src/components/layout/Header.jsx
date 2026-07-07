@@ -17,7 +17,7 @@ export const Header = () => {
             <Link className="nav-link" to="/">
               <TbLogin /> Login
             </Link>
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/signup">
               <IoIosCreate /> Signup
             </Link>
             <Link className="nav-link" to="/">

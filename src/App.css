@@ -69,3 +69,72 @@
 text-decoration: none;
 
 }
+/* -----Expenses and saving components=---------- */
+.exp-sav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.exp-sav-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.divider {
+  width: 1px;
+  height: 160px;
+  background: #444;
+}
+
+.exp-word,
+.sav-word {
+  font-weight: 600;
+  line-height: 1;
+}
+
+.exp-word {
+  color: #e24b4a;
+}
+
+.sav-word {
+  color: #3b9922;
+}
+
+/* expenses shrinks top to bottom */
+.exp-side .size-lg { font-size: 34px; }
+.exp-side .size-md { font-size: 24px; opacity: 0.85; }
+.exp-side .size-sm { font-size: 16px; opacity: 0.7; }
+
+/* savings grows top to bottom */
+.sav-side .size-sm { font-size: 16px; opacity: 0.7; }
+.sav-side .size-md { font-size: 24px; opacity: 0.85; }
+.sav-side .size-lg { font-size: 34px; }
+
+.arrow-down,
+.arrow-up {
+  width: 0;
+  height: 0;
+  margin-top: 8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+
+.arrow-down {
+  border-top: 12px solid #a32d2d;
+}
+
+.arrow-up {
+  border-bottom: 12px solid #3b6d11;
+}
+
+.caption {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #888;
+}
