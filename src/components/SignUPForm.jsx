@@ -1,12 +1,18 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { postNewUser } from "../../helper/axios";
+import useForm from "../hooks/useForm";
 
+const intialState = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 export const SignUPForm = () => {
-  const [form, setForm] = useState({});
+  const { form, handleOnChange, setForm } = useForm(intialState);
 
   const inputFields = [
     {
@@ -15,6 +21,7 @@ export const SignUPForm = () => {
       placeholder: "eg: John Doe",
       required: true,
       name: "name",
+      value: form.name,
     },
     {
       label: "Email",
@@ -22,6 +29,7 @@ export const SignUPForm = () => {
       placeholder: "eg: capital@view.com",
       required: true,
       name: "email",
+      value: form.email,
     },
     {
       label: "Password",
@@ -29,6 +37,7 @@ export const SignUPForm = () => {
       placeholder: "********",
       required: true,
       name: "password",
+      value: form.password,
     },
     {
       label: "Confirm Password",
@@ -36,17 +45,18 @@ export const SignUPForm = () => {
       placeholder: "********",
       required: true,
       name: "confirmPassword",
+      value: form.confirmPassword,
     },
   ];
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
+  //   setForm({
+  //     ...form,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +66,8 @@ export const SignUPForm = () => {
     }
     const { status, message } = await postNewUser(rest);
     toast[status](message);
+
+    status === "success" && setForm(intialState);
   };
   return (
     <div className="form-edit">
