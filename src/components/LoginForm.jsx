@@ -3,9 +3,18 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import Button from "react-bootstrap/Button";
+import useForm from "../hooks/useForm";
+
+const intialState = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 export const LoginForm = () => {
-  const [form, setForm] = useState({});
+  const { form, handleOnChange, setForm } = useForm(intialState);
+
   const inputFields = [
     {
       label: "Email",
@@ -22,15 +31,6 @@ export const LoginForm = () => {
       name: "password",
     },
   ];
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
