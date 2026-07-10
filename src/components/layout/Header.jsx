@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { TbLogin } from "react-icons/tb";
 import { IoIosCreate } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
+import { MdAttachMoney } from "react-icons/md";
 
 export const Header = () => {
   return (
@@ -19,6 +21,13 @@ export const Header = () => {
             </Link>
             <Link className="nav-link" to="/signup">
               <IoIosCreate /> Signup
+            </Link>
+            <Link className="nav-link" to="/dashboard">
+              <RxDashboard /> Dashboard
+            </Link>
+            <Link className="nav-link" to="/transaction">
+              <MdAttachMoney />
+              Transaction
             </Link>
             <Link className="nav-link" to="/">
               <IoLogOut />
