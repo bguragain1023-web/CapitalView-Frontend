@@ -1,9 +1,9 @@
-import { useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import Button from "react-bootstrap/Button";
 import useForm from "../hooks/useForm";
+import { loginUser } from "../../helper/axios";
+import { toast } from "react-toastify";
 
 const intialState = {
   name: "",
@@ -13,7 +13,7 @@ const intialState = {
 };
 
 export const LoginForm = () => {
-  const { form, handleOnChange, setForm } = useForm(intialState);
+  const { form, handleOnChange } = useForm(intialState);
 
   const inputFields = [
     {
@@ -34,7 +34,15 @@ export const LoginForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+
+    const pendingState = loginUser(form);
+    toast.promise(pendingState, {
+      pending: "please wait...",
+    });
+    const { status, message, user, accessJWT } = await pendingState;
+
+    toast[status](message);
+    console.log(user, accessJWT);
   };
 
   return (
