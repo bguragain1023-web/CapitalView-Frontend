@@ -54,6 +54,7 @@ export const LoginForm = () => {
     toast[status](message);
     console.log(user, accessJWT);
     setUser(user);
+    localStorage.setItem("accessJWT", accessJWT);
   };
 
   return (

@@ -10,8 +10,8 @@ import { MdAttachMoney } from "react-icons/md";
 import { useUser } from "../../contex/UserContex";
 
 export const Header = () => {
-  const data = useUser();
-  console.log(data);
+  const { user, setUser } = useUser();
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -19,23 +19,30 @@ export const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link className="nav-link" to="/">
-              <TbLogin /> Login
-            </Link>
-            <Link className="nav-link" to="/signup">
-              <IoIosCreate /> Signup
-            </Link>
-            <Link className="nav-link" to="/dashboard">
-              <RxDashboard /> Dashboard
-            </Link>
-            <Link className="nav-link" to="/transaction">
-              <MdAttachMoney />
-              Transaction
-            </Link>
-            <Link className="nav-link" to="/">
-              <IoLogOut />
-              Logout
-            </Link>
+            {user?._id ? (
+              <>
+                <Link className="nav-link" to="/dashboard">
+                  <RxDashboard /> Dashboard
+                </Link>
+                <Link className="nav-link" to="/transaction">
+                  <MdAttachMoney />
+                  Transaction
+                </Link>
+                <Link className="nav-link" to="/">
+                  <IoLogOut />
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link className="nav-link" to="/">
+                  <TbLogin /> Login
+                </Link>
+                <Link className="nav-link" to="/signup">
+                  <IoIosCreate /> Signup
+                </Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
