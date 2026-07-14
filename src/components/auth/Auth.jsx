@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
+import { useUser } from "../../contex/UserContex";
 
 export const Auth = ({ children }) => {
-  const isLoggedIn = false;
-  return isLoggedIn ? children : <Navigate to={"/"} replace />;
+  const { user } = useUser();
+  return user?._id ? children : <Navigate to={"/"} replace />;
 };

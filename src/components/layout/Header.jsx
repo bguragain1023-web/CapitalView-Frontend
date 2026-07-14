@@ -7,8 +7,11 @@ import { IoIosCreate } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { MdAttachMoney } from "react-icons/md";
+import { useUser } from "../../contex/UserContex";
 
 export const Header = () => {
+  const data = useUser();
+  console.log(data);
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>

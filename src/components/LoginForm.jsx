@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import useForm from "../hooks/useForm";
 import { loginUser } from "../../helper/axios";
 import { toast } from "react-toastify";
+import { useUser } from "../contex/UserContex";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const intialState = {
   name: "",
@@ -13,7 +16,14 @@ const intialState = {
 };
 
 export const LoginForm = () => {
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
   const { form, handleOnChange } = useForm(intialState);
+
+  useEffect(() => {
+    user?._id && navigate("/dashboard");
+  }, [user?._id, navigate]);
 
   const inputFields = [
     {
@@ -43,6 +53,7 @@ export const LoginForm = () => {
 
     toast[status](message);
     console.log(user, accessJWT);
+    setUser(user);
   };
 
   return (
