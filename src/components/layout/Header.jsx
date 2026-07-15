@@ -12,6 +12,11 @@ import { useUser } from "../../contex/UserContex";
 export const Header = () => {
   const { user, setUser } = useUser();
 
+  const handleOnLogout = () => {
+    localStorage.removeItem("accessJWT");
+    setUser({});
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -21,26 +26,26 @@ export const Header = () => {
           <Nav className="ms-auto">
             {user?._id ? (
               <>
-                <Link className="nav-link" to="/dashboard">
+                <Nav.Link as={Link} to="/dashboard">
                   <RxDashboard /> Dashboard
-                </Link>
-                <Link className="nav-link" to="/transaction">
+                </Nav.Link>
+                <Nav.Link as={Link} to="/transaction">
                   <MdAttachMoney />
                   Transaction
-                </Link>
-                <Link className="nav-link" to="/">
+                </Nav.Link>
+                <Nav.Link as={Link} to="/" onClick={handleOnLogout}>
                   <IoLogOut />
                   Logout
-                </Link>
+                </Nav.Link>
               </>
             ) : (
               <>
-                <Link className="nav-link" to="/">
+                <Nav.Link as={Link} to="/">
                   <TbLogin /> Login
-                </Link>
-                <Link className="nav-link" to="/signup">
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
                   <IoIosCreate /> Signup
-                </Link>
+                </Nav.Link>
               </>
             )}
           </Nav>
