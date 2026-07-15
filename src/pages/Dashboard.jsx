@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 const Dashboard = () => {
   return (
     <div className="  ">
-      <h1 className="header">Register your Account</h1>
+      <h1 className="header">Dashboard</h1>
       <Container className="p-5   ">
         <Row className="d-flex align-items-center">
           <Col md={6}>TO DO Dashboard</Col>

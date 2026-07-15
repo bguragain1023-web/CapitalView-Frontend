@@ -8,8 +8,22 @@ import { Layout } from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Transaction from "./pages/Transaction";
 import { Auth } from "./components/auth/Auth";
+import { useEffect } from "react";
+import { autoLoggedIn } from "./utils/users";
+import { useUser } from "./contex/UserContex";
 
 function App() {
+  const { user, setUser } = useUser();
+  const updateUser = async () => {
+    const users = await autoLoggedIn();
+    setUser(users);
+    console.log(users);
+  };
+
+  useEffect(() => {
+    !user?._id && updateUser();
+  }, [user?._id]);
+
   return (
     <div className="wrapper ">
       <Routes>
