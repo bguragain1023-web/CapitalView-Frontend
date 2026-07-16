@@ -49,15 +49,6 @@ export const SignUPForm = () => {
     },
   ];
 
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setForm({
-  //     ...form,
-  //     [name]: value,
-  //   });
-  // };
-
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const { confirmPassword, ...rest } = form;
