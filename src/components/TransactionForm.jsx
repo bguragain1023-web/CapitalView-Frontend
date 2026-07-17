@@ -1,8 +1,9 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
-
+import { toast } from "react-toastify";
 import useForm from "../hooks/useForm";
+import { postTransaction } from "../../helper/axios";
 
 const initialState = {
   type: "",
@@ -35,12 +36,18 @@ export const TransactionForm = () => {
       label: "Date",
       type: "date",
       required: true,
-      name: "tdate",
-      value: form.tdate,
+      name: "date",
+      value: form.date,
     },
   ];
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const pending = postTransaction(form);
+    toast.promise(pending, {
+      pending: "please wait ...",
+    });
+    const { status, message } = await pending;
+    toast[status](message);
     console.log(form);
     setForm(initialState);
   };
