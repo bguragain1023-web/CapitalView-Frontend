@@ -49,7 +49,7 @@ export const TransactionForm = () => {
     const { status, message } = await pending;
     toast[status](message);
     console.log(form);
-    setForm(initialState);
+    status === "success" && setForm(initialState);
   };
 
   return (
