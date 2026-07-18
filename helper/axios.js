@@ -77,7 +77,7 @@ export const postTransaction = (data) => {
 //get transaction
 export const getTransaction = () => {
   const transaction = {
-    method: "post",
+    method: "get",
     url: baseUrl + "/transaction",
 
     headers: {
