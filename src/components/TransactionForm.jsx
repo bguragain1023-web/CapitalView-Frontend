@@ -4,16 +4,18 @@ import { CustomInput } from "./CustomInput";
 import { toast } from "react-toastify";
 import useForm from "../hooks/useForm";
 import { postTransaction } from "../../helper/axios";
+import { useUser } from "../contex/UserContex";
 
 const initialState = {
   type: "",
   title: "",
   amount: "",
-  tdate: "",
+  date: "",
 };
 
 export const TransactionForm = () => {
   const { form, handleOnChange, setForm } = useForm(initialState);
+  const { showTransaction } = useUser();
 
   const inputFields = [
     {
@@ -48,8 +50,10 @@ export const TransactionForm = () => {
     });
     const { status, message } = await pending;
     toast[status](message);
-    console.log(form);
-    status === "success" && setForm(initialState);
+    if (status === "success") {
+      setForm(initialState);
+      showTransaction();
+    }
   };
 
   return (

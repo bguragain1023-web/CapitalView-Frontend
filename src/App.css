@@ -138,3 +138,16 @@ text-decoration: none;
   font-size: 13px;
   color: #888;
 }
+
+/* Transaction Table  */
+.table, tr, td {
+  background:  rgba(40, 39, 39, 0.707)!important;
+  color:rgba(255, 255, 255, 0.733) !important;
+border-radius: 5px;
+ 
+ 
+}
+
+th{
+  background: rgba(3, 185, 3, 0.475) !important;
+}

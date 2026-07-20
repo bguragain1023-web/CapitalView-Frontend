@@ -7,6 +7,8 @@ export const UserProvider = ({ children }) => {
   const [allTransaction, setAllTransaction] = useState([]);
 
   const showTransaction = async () => {
+    const result = await getTransaction();
+    console.log("RAW result:", result);
     const { status, transaction } = await getTransaction();
     status === "success" && setAllTransaction(transaction);
   };
