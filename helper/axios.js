@@ -74,7 +74,7 @@ export const postTransaction = (data) => {
   return apiProcessor(transaction);
 };
 
-//get transaction
+//get transaction fro specific user
 export const getTransaction = () => {
   const transaction = {
     method: "get",
