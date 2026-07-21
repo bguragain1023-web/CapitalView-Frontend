@@ -5,10 +5,12 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [allTransaction, setAllTransaction] = useState([]);
+  const [show, setShow] = useState(false);
+  const toggleModal = (value) => {
+    setShow(value);
+  };
 
   const showTransaction = async () => {
-    const result = await getTransaction();
-    console.log("RAW result:", result);
     const { status, transaction } = await getTransaction();
     status === "success" && setAllTransaction(transaction);
   };
@@ -20,6 +22,8 @@ export const UserProvider = ({ children }) => {
         showTransaction,
         allTransaction,
         setAllTransaction,
+        show,
+        toggleModal,
       }}
     >
       {children}

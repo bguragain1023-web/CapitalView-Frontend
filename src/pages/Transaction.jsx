@@ -5,6 +5,7 @@ import { TransactionForm } from "../components/TransactionForm";
 import { TransactionTable } from "../components/TransactionTable";
 import { useUser } from "../contex/UserContex";
 import { useEffect } from "react";
+import { CustomModal } from "../components/CustomModal";
 
 const Transaction = () => {
   const { showTransaction } = useUser();
@@ -19,7 +20,10 @@ const Transaction = () => {
       <Container className="p-5   ">
         <Row className="d-flex align-items-center">
           <Col>
-            <TransactionForm />
+            <CustomModal>
+              <TransactionForm />
+            </CustomModal>
+
             <hr />
             <TransactionTable />
           </Col>

@@ -15,7 +15,7 @@ const initialState = {
 
 export const TransactionForm = () => {
   const { form, handleOnChange, setForm } = useForm(initialState);
-  const { showTransaction } = useUser();
+  const { showTransaction, toggleModal } = useUser();
 
   const inputFields = [
     {
@@ -53,6 +53,7 @@ export const TransactionForm = () => {
     if (status === "success") {
       setForm(initialState);
       showTransaction();
+      toggleModal(false);
     }
   };
 

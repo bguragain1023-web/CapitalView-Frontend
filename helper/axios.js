@@ -87,3 +87,18 @@ export const getTransaction = () => {
 
   return apiProcessor(transaction);
 };
+
+//delete transasction
+
+export const deleteTransaction = (data) => {
+  const transaction = {
+    method: "delete",
+    url: baseUrl + "/transaction",
+    data,
+    headers: {
+      Authorization: getAccessJWT(),
+    },
+  };
+
+  return apiProcessor(transaction);
+};

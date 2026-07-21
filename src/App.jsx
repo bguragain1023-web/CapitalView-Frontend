@@ -17,7 +17,6 @@ function App() {
   const updateUser = async () => {
     const users = await autoLoggedIn();
     setUser(users);
-    console.log(users);
   };
 
   useEffect(() => {
