@@ -4,11 +4,13 @@ import { Button, Form } from "react-bootstrap";
 import { IoMdAddCircle } from "react-icons/io";
 import { useState } from "react";
 import { useEffect } from "react";
+import { deleteTransaction } from "../../helper/axios";
+import { toast } from "react-toastify";
 
 export const TransactionTable = () => {
   const [displayTransaction, setDisplayTransaction] = useState([]);
   const [deleteItems, setDeleteItems] = useState([]);
-  const { allTransaction, toggleModal } = useUser();
+  const { allTransaction, toggleModal, showTransaction } = useUser();
 
   useEffect(() => {
     setDisplayTransaction(allTransaction);
@@ -28,27 +30,34 @@ export const TransactionTable = () => {
 
   const handleOnChecked = (e) => {
     const { checked, value } = e.target;
-    let tempArg = [];
 
-    if (value === "selectAll") tempArg = displayTransaction;
+    if (value === "selectAll") {
+      checked
+        ? setDeleteItems(displayTransaction.map((item) => item._id))
+        : setDeleteItems([]);
+
+      return;
+    }
 
     if (checked) {
-      if (value === "selectAll") {
-        const ids = tempArg.map((item) => item._id);
-        console.log(ids);
-        const uniqueIds = [...new Set([...deleteItems, ...ids])];
-        setDeleteItems(uniqueIds);
-        return;
-      }
       setDeleteItems([...deleteItems, value]);
     } else {
-      if (value === "selectAll") {
-        const ids = tempArg.map((item) => item._id);
-        setDeleteItems(deleteItems.filter((id) => !ids.includes(id)));
-        return;
-      }
-
       setDeleteItems(deleteItems.filter((id) => id !== value));
+      console.log(deleteItems);
+    }
+    return;
+  };
+
+  const handleOnDelete = async () => {
+    const pending = deleteTransaction(deleteItems);
+    toast.promise(pending, {
+      pending: "please wait....",
+    });
+    const { status, message } = await pending;
+    toast[status](message);
+    if (status === "success") {
+      showTransaction();
+      setDeleteItems([]);
     }
   };
 
@@ -69,19 +78,15 @@ export const TransactionTable = () => {
         <thead>
           <tr>
             <th>
-              <input
-                type="checkbox"
+              <Form.Check
+                label={"Select ALl"}
                 value="selectAll"
-                id="select-all"
                 onChange={handleOnChecked}
                 checked={
-                  displayTransaction.length > 0 &&
-                  displayTransaction.every((item) =>
-                    deleteItems.includes(item._id),
-                  )
+                  deleteItems.length > 0 &&
+                  deleteItems.length === displayTransaction.length
                 }
               />
-              <label htmlFor="select-all">select all</label>
             </th>
             <th>Date</th>
             <th>Title</th>
@@ -93,13 +98,12 @@ export const TransactionTable = () => {
           {displayTransaction.map((item, i) => (
             <tr key={item._id}>
               <td>
-                <input
-                  type="checkbox"
-                  value={item?._id}
+                <Form.Check
+                  label={i + 1}
+                  value={item._id}
                   onChange={handleOnChecked}
-                  checked={deleteItems.includes(item?._id)}
-                />{" "}
-                {i + 1}
+                  checked={deleteItems.includes(item._id)}
+                />
               </td>
               <td>{item.date.slice(0, 10)}</td>
               <td>{item.title}</td>
@@ -129,6 +133,14 @@ export const TransactionTable = () => {
           </tr>
         </tbody>
       </Table>
+
+      {deleteItems.length > 0 && (
+        <div className="d-grid">
+          <Button variant="danger" onClick={handleOnDelete}>
+            Delete {deleteItems.length} Transactions
+          </Button>
+        </div>
+      )}
     </>
   );
 };

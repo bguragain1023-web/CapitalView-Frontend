@@ -55,7 +55,6 @@ export const LoginForm = () => {
     const { status, message, user, accessJWT } = await pendingState;
 
     toast[status](message);
-    console.log(user, accessJWT);
     setUser(user);
     localStorage.setItem("accessJWT", accessJWT);
   };
