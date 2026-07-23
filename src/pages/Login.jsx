@@ -3,10 +3,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { LoginForm } from "../components/LoginForm";
 import { ExpensesSavings } from "../components/ExpensesSavings";
-// import { useUser } from "../contex/UserContex";
 
 const Login = () => {
-  // const {user, setUser} = useUser();
   return (
     <div className="  ">
       <h1 className="header">Login</h1>

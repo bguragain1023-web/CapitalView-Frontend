@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:8000/api/v1";
+const baseUrl = import.meta.env.VITE_ROOT_API + "/api/v1";
 
 const getAccessJWT = () => {
   return localStorage.getItem("accessJWT");

@@ -43,21 +43,26 @@ export const TransactionTable = () => {
       setDeleteItems([...deleteItems, value]);
     } else {
       setDeleteItems(deleteItems.filter((id) => id !== value));
-      console.log(deleteItems);
     }
     return;
   };
 
   const handleOnDelete = async () => {
-    const pending = deleteTransaction(deleteItems);
-    toast.promise(pending, {
-      pending: "please wait....",
-    });
-    const { status, message } = await pending;
-    toast[status](message);
-    if (status === "success") {
-      showTransaction();
-      setDeleteItems([]);
+    if (
+      confirm(
+        `Are you sure you eant to delete ${deleteItems.length} transaction(s) ?`,
+      )
+    ) {
+      const pending = deleteTransaction(deleteItems);
+      toast.promise(pending, {
+        pending: "please wait....",
+      });
+      const { status, message } = await pending;
+      toast[status](message);
+      if (status === "success") {
+        showTransaction();
+        setDeleteItems([]);
+      }
     }
   };
 
@@ -66,7 +71,11 @@ export const TransactionTable = () => {
       <div className="d-flex justify-content-between align-items-center m-3">
         <div>{displayTransaction.length} transaction(s) found!! </div>
         <div>
-          <Form.Control type="text" onChange={handleOnSearch} />
+          <Form.Control
+            placeholder="Search Transaction"
+            type="text"
+            onChange={handleOnSearch}
+          />
         </div>
         <div>
           <Button onClick={() => toggleModal(true)}>
