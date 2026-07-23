@@ -2,6 +2,22 @@
     background: rgba(214, 212, 212, 0.622);
     min-height:100vh;
 }
+/* fonts */
+
+.oswald-balance {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: itali;
+}
+
+
+.space-grotesk-amount {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: bold;
+}
 
 /* singUp pages */
 .signup-box{
@@ -150,4 +166,58 @@ border-radius: 5px;
 
 th{
   background: rgba(3, 185, 3, 0.475) !important;
+}
+
+/* dashboard page */
+
+.dashboard-theme{
+  background: #111827;
+  min-height: 100vh;
+ 
+
+}
+
+/* balance metrics */
+.balance{
+  
+  padding:20px;
+  min-height:100%;
+  width:100%;
+  border: 2px solid red;
+  text-align:center;
+}
+
+.totalBalance{
+  background: rgba(3, 3, 141, 0.755);
+    color:rgba(255, 255, 255, 0.852);
+ font-size:3rem;
+ border-radius:30px;
+  width:33%;
+ 
+ 
+}
+.incomeTotal{
+  background: green;
+  color:rgba(255, 255, 255, 0.852);
+ font-size:3rem;
+ border-radius:30px;
+  width:33%;
+}
+
+.expensesTotal{
+background: rgba(255, 0, 0, 0.809);
+  color:rgba(255, 255, 255, 0.852);
+ font-size:3rem;
+ border-radius:30px;
+  width:33%;
+}
+/* piechart  */
+
+.customPieChart{
+  border-radius: 20px;
+  padding: 32px;
+  width: fit-content;
+  border: 2px red solid;
+ 
+
 }
