@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const CustomPieChart = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-  const { allTransaction, showTransaction } = useUser();
+  const { allTransaction } = useUser();
   const totalIncome = allTransaction.reduce((acc, item) => {
     return item.type === "income" ? item.amount + acc : acc;
   }, 0);
