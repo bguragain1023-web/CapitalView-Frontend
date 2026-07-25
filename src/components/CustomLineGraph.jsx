@@ -73,8 +73,10 @@ const CustomLineGraph = () => {
           stroke: "white",
         }}
         contentStyle={{
-          backgroundColor: "transparent",
+          backgroundColor: "#1f2937",
           border: "none",
+          borderRadius: 10,
+          color: "#fff",
         }}
       />
       <Legend />
