@@ -5,7 +5,7 @@ import useForm from "../hooks/useForm";
 import { loginUser } from "../../helper/axios";
 import { toast } from "react-toastify";
 import { useUser } from "../contex/UserContex";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const intialState = {
@@ -16,6 +16,7 @@ const intialState = {
 };
 
 export const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
 
   const { user, setUser } = useUser();
@@ -47,6 +48,7 @@ export const LoginForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const pendingState = loginUser(form);
     toast.promise(pendingState, {
@@ -57,6 +59,8 @@ export const LoginForm = () => {
     toast[status](message);
     setUser(user);
     localStorage.setItem("accessJWT", accessJWT);
+
+    setIsLoading(false);
   };
 
   return (
@@ -66,8 +70,8 @@ export const LoginForm = () => {
           <CustomInput key={input.name} {...input} onChange={handleOnChange} />
         ))}
 
-        <Button variant="danger" type="submit">
-          Submit
+        <Button variant="danger" type="submit" disabled={isLoading}>
+          {isLoading ? "Submitting" : "Submit"}
         </Button>
       </Form>
     </div>
