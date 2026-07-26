@@ -41,7 +41,7 @@ const CustomPieChart = () => {
           cx="50%"
           cy="50%"
           innerRadius={0}
-          outerRadius={190}
+          outerRadius={150}
           paddingAngle={4}
           label
           isAnimationActive={true}

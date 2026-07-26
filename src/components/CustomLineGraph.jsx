@@ -16,20 +16,20 @@ import { useUser } from "../contex/UserContex";
 const CustomLineGraph = () => {
   const { allTransaction } = useUser();
 
-  const getQuaterLabel = (transactionDate) => {
+  const getMonthLabel = (transactionDate) => {
     const date = new Date(transactionDate);
+    const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
-    const month = date.getMonth();
-    const quater = Math.floor(month / 3) + 1;
-    return `Q${quater} ${year}`;
+    return `${month} ${year}`;
   };
 
   const groupData = allTransaction.reduce((acc, transaction) => {
-    const quater = getQuaterLabel(transaction.date);
-    let existing = acc.find((item) => item.name === quater);
+    const month = getMonthLabel(transaction.date);
+
+    let existing = acc.find((item) => item.name === month);
 
     if (!existing) {
-      existing = { name: quater, income: 0, expenses: 0 };
+      existing = { name: month, income: 0, expenses: 0 };
       acc.push(existing);
     }
     if (transaction.type === "income") {
@@ -39,18 +39,13 @@ const CustomLineGraph = () => {
     }
     return acc;
   }, []);
-  const data = groupData.sort((a, b) => {
-    const [qA, yearA] = a.name.split(" ");
-    const [qB, yearB] = b.name.split(" ");
-    if (yearA !== yearB) return yearA - yearB;
-    return qA.replace("Q", "") - qB.replace("Q", "");
-  });
+  const data = groupData.sort((a, b) => new Date(a.name) - new Date(b.name));
   return (
     <LineChart
       style={{
         width: "100%",
         maxWidth: "100%",
-        height: "399px",
+        height: "200px",
         maxHeight: "70vh",
         aspectRatio: 1.618,
         background: "rgba(241, 239, 239, 0.091)",
@@ -65,7 +60,7 @@ const CustomLineGraph = () => {
         bottom: 5,
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid strokeDasharray="5 5" stroke="rgba(255,255,255,0.08)" />
       <XAxis dataKey="name" stroke="grey" />
       <YAxis width="a" stroke="grey" />
       <Tooltip

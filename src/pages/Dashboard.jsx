@@ -26,7 +26,7 @@ const Dashboard = () => {
     <div className=" dashboard-theme ">
       <h1 className="header text-white">Dashboard</h1>
 
-      <Container fluid className="p-2   ">
+      <Container className="p-2   ">
         <div className="balance d-flex gap-3">
           <div className="totalBalance">
             <div className="oswald-balance">
@@ -63,13 +63,7 @@ const Dashboard = () => {
           </div>
         </div>
         <Row className="d-flex align-items-center p-1">
-          <Col
-            md={6}
-            className="d-flex justify-content-center align-items-center p-3"
-          >
-            <CustomPieChart />
-          </Col>
-          <Col md={6}>
+          <Col>
             <div className="mt-2 d-flex justify-content-center align-items-center">
               <CustomLineGraph />
             </div>
@@ -79,9 +73,12 @@ const Dashboard = () => {
 
       <Container>
         <Row>
-          <div>
+          <Col className="d-flex justify-content-center align-items-center ">
+            <CustomPieChart />
+          </Col>
+          <Col className="d-flex justify-content-center align-items-center ">
             <CustomBarDiagram />
-          </div>
+          </Col>
         </Row>
       </Container>
     </div>
