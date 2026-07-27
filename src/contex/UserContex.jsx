@@ -5,6 +5,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [allTransaction, setAllTransaction] = useState([]);
+  const [editTransaction, setEditTransaction] = useState(null);
   const [show, setShow] = useState(false);
   const toggleModal = (value) => {
     setShow(value);
@@ -24,6 +25,8 @@ export const UserProvider = ({ children }) => {
         setAllTransaction,
         show,
         toggleModal,
+        editTransaction,
+        setEditTransaction,
       }}
     >
       {children}

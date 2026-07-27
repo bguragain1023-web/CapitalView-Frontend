@@ -10,7 +10,8 @@ import { toast } from "react-toastify";
 export const TransactionTable = () => {
   const [displayTransaction, setDisplayTransaction] = useState([]);
   const [deleteItems, setDeleteItems] = useState([]);
-  const { allTransaction, toggleModal, showTransaction } = useUser();
+  const { allTransaction, toggleModal, showTransaction, setEditTransaction } =
+    useUser();
 
   useEffect(() => {
     setDisplayTransaction(allTransaction);
@@ -65,6 +66,11 @@ export const TransactionTable = () => {
       }
     }
   };
+  const handleOnUpdate = (transaction) => {
+    setEditTransaction(transaction);
+    console.log(transaction);
+    toggleModal(true);
+  };
 
   return (
     <>
@@ -78,7 +84,12 @@ export const TransactionTable = () => {
           />
         </div>
         <div>
-          <Button onClick={() => toggleModal(true)}>
+          <Button
+            onClick={() => {
+              toggleModal(true);
+              setEditTransaction(null);
+            }}
+          >
             <IoMdAddCircle /> Add New Transaction
           </Button>
         </div>
@@ -129,6 +140,15 @@ export const TransactionTable = () => {
                   <td className="text-success">${item.amount}</td>
                 </>
               )}
+              <td>
+                <Button
+                  onClick={() => {
+                    handleOnUpdate(item);
+                  }}
+                >
+                  Update
+                </Button>
+              </td>
             </tr>
           ))}
           <tr className="fw-bold text-end">

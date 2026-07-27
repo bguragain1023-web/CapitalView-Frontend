@@ -3,8 +3,9 @@ import Form from "react-bootstrap/Form";
 import { CustomInput } from "./CustomInput";
 import { toast } from "react-toastify";
 import useForm from "../hooks/useForm";
-import { postTransaction } from "../../helper/axios";
+import { patchTransaction, postTransaction } from "../../helper/axios";
 import { useUser } from "../contex/UserContex";
+import { useState } from "react";
 
 const initialState = {
   type: "",
@@ -13,9 +14,21 @@ const initialState = {
   date: "",
 };
 
+const formatDateForInput = (dateString) => {
+  if (!dateString) return "";
+  return new Date(dateString).toISOString().split("T")[0];
+};
+
 export const TransactionForm = () => {
-  const { form, handleOnChange, setForm } = useForm(initialState);
-  const { showTransaction, toggleModal } = useUser();
+  const { showTransaction, toggleModal, editTransaction, setEditTransaction } =
+    useUser();
+  const [submitting, setSubmitting] = useState(false);
+  const isEdit = Boolean(editTransaction);
+  const { form, handleOnChange, setForm } = useForm(
+    editTransaction
+      ? { ...editTransaction, date: formatDateForInput(editTransaction.date) }
+      : initialState,
+  );
 
   const inputFields = [
     {
@@ -42,9 +55,22 @@ export const TransactionForm = () => {
       value: form.date,
     },
   ];
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const pending = postTransaction(form);
+    setSubmitting(true);
+
+    let pending;
+
+    if (editTransaction) {
+      const editField = {};
+      for (const key in form) {
+        if (form[key] !== editTransaction[key]) {
+          editField[key] = form[key];
+        }
+      }
+      pending = patchTransaction(editTransaction._id, editField);
+    } else pending = postTransaction(form);
     toast.promise(pending, {
       pending: "please wait ...",
     });
@@ -62,7 +88,12 @@ export const TransactionForm = () => {
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Transcation Type</Form.Label>
-          <Form.Select name="type" onChange={handleOnChange} required>
+          <Form.Select
+            name="type"
+            onChange={handleOnChange}
+            value={form.type}
+            required
+          >
             <option value="">Select</option>
             <option value="income">Income</option>
             <option value="expenses">Expenses</option>

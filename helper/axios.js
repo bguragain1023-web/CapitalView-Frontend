@@ -102,3 +102,15 @@ export const deleteTransaction = (data) => {
 
   return apiProcessor(transaction);
 };
+
+export const patchTransaction = (id, data) => {
+  const transaction = {
+    method: "patch",
+    url: baseUrl + "/transaction/" + id,
+    data,
+    headers: {
+      Authorization: getAccessJWT(),
+    },
+  };
+  return apiProcessor(transaction);
+};
