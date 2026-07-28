@@ -15,8 +15,9 @@ const Transaction = () => {
   }, []);
 
   return (
-    <div className="  ">
-      <h1 className="header">View your Transcation here</h1>
+    <div className=" dashboard-theme  ">
+      <h1 className="header text-white">View your Transcation here</h1>
+
       <Container className="p-5   ">
         <Row className="d-flex align-items-center">
           <Col>

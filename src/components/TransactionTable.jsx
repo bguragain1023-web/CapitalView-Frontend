@@ -68,100 +68,118 @@ export const TransactionTable = () => {
   };
   const handleOnUpdate = (transaction) => {
     setEditTransaction(transaction);
-    console.log(transaction);
+
     toggleModal(true);
   };
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center m-3">
-        <div>{displayTransaction.length} transaction(s) found!! </div>
-        <div>
-          <Form.Control
-            placeholder="Search Transaction"
-            type="text"
-            onChange={handleOnSearch}
-          />
+      <div className="d-flex justify-content-between align-items-center m-3 search-bar">
+        <div className="d-flex justify-content-between align-items-center gap-2 ">
+          <div>
+            <Form.Control
+              placeholder={
+                allTransaction.length
+                  ? "Search Transaction"
+                  : "No transaction available"
+              }
+              type="text"
+              disabled={allTransaction.length === 0}
+              onChange={handleOnSearch}
+            />
+          </div>
+          <div>
+            <Button
+              className="addBtn"
+              onClick={() => {
+                toggleModal(true);
+                setEditTransaction(null);
+              }}
+            >
+              <IoMdAddCircle /> Add New Transaction
+            </Button>
+          </div>
         </div>
-        <div>
-          <Button
-            onClick={() => {
-              toggleModal(true);
-              setEditTransaction(null);
-            }}
-          >
-            <IoMdAddCircle /> Add New Transaction
-          </Button>
+        <div className="text-white">
+          {displayTransaction.length} transaction(s) found!!{" "}
         </div>
       </div>
-      <Table striped hover>
-        <thead>
-          <tr>
-            <th>
-              <Form.Check
-                label={"Select ALl"}
-                value="selectAll"
-                onChange={handleOnChecked}
-                checked={
-                  deleteItems.length > 0 &&
-                  deleteItems.length === displayTransaction.length
-                }
-              />
-            </th>
-            <th>Date</th>
-            <th>Title</th>
-            <th>Out</th>
-            <th>In</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayTransaction.map((item, i) => (
-            <tr key={item._id}>
-              <td>
+      {allTransaction.length ? (
+        <Table striped hover responsive>
+          <thead>
+            <tr>
+              <th>
                 <Form.Check
-                  label={i + 1}
-                  value={item._id}
+                  label={"Select ALl"}
+                  value="selectAll"
                   onChange={handleOnChecked}
-                  checked={deleteItems.includes(item._id)}
+                  checked={
+                    deleteItems.length > 0 &&
+                    deleteItems.length === displayTransaction.length
+                  }
                 />
-              </td>
-              <td>{item.date.slice(0, 10)}</td>
-              <td>{item.title}</td>
-              {item.type === "expenses" && (
-                <>
-                  <td className="text-danger"> -${item.amount}</td>
-                  <td></td>
-                </>
-              )}
+              </th>
+              <th>Date</th>
+              <th>Title</th>
+              <th>Out</th>
+              <th colSpan={2}>In</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayTransaction.map((item, i) => (
+              <tr key={item._id}>
+                <td>
+                  <Form.Check
+                    label={i + 1}
+                    value={item._id}
+                    onChange={handleOnChecked}
+                    checked={deleteItems.includes(item._id)}
+                  />
+                </td>
+                <td>{item.date.slice(0, 10)}</td>
+                <td>{item.title}</td>
+                {item.type === "expenses" && (
+                  <>
+                    <td className="text-danger"> -${item.amount}</td>
+                    <td></td>
+                  </>
+                )}
 
-              {item.type === "income" && (
-                <>
-                  <td></td>
-                  <td className="text-success">${item.amount}</td>
-                </>
-              )}
-              <td>
-                <Button
-                  onClick={() => {
-                    handleOnUpdate(item);
-                  }}
-                >
-                  Update
-                </Button>
+                {item.type === "income" && (
+                  <>
+                    <td></td>
+                    <td className="text-success">${item.amount}</td>
+                  </>
+                )}
+                <td>
+                  <Button
+                    className="updateBtn"
+                    variant="outline-info"
+                    onClick={() => {
+                      handleOnUpdate(item);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </td>
+              </tr>
+            ))}
+            <tr className="fw-bold text-end">
+              <td colSpan={4}>Total</td>
+              <td
+                colSpan={2}
+                className={balance > 0 ? "text-success" : "text-danger"}
+              >
+                {balance}
               </td>
             </tr>
-          ))}
-          <tr className="fw-bold text-end">
-            <td colSpan={3}>Total</td>
-            <td
-              colSpan={2}
-              className={balance > 0 ? "text-success" : "text-danger"}
-            >
-              {balance}
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      ) : (
+        <div className="empty-div">
+          No Transaction Found <br /> Add a new transaction to get started,
+        </div>
+      )}
 
       {deleteItems.length > 0 && (
         <div className="d-grid">

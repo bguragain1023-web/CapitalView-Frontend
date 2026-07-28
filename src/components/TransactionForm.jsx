@@ -20,8 +20,7 @@ const formatDateForInput = (dateString) => {
 };
 
 export const TransactionForm = () => {
-  const { showTransaction, toggleModal, editTransaction, setEditTransaction } =
-    useUser();
+  const { showTransaction, toggleModal, editTransaction } = useUser();
   const [submitting, setSubmitting] = useState(false);
   const isEdit = Boolean(editTransaction);
   const { form, handleOnChange, setForm } = useForm(

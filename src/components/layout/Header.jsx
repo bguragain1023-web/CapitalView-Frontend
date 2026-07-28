@@ -22,9 +22,8 @@ export const Header = () => {
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary" expanded={showMenu}>
-      <Container>
+      <Container className="p-1">
         <Navbar.Brand href="#home">Capital view</Navbar.Brand>
-        {user?.name && <div>Welcome {user?.name}</div>}
 
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"

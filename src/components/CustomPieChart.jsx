@@ -12,9 +12,6 @@ const CustomPieChart = () => {
   const totalExpenses = allTransaction.reduce((acc, item) => {
     return item.type === "expenses" ? item.amount + acc : acc;
   }, 0);
-  console.log("income:", totalIncome);
-  console.log("expenses:", totalExpenses);
-  console.log(allTransaction[0]?.type);
 
   const data = [
     // { name: allTransaction?[0].ty, value: 400 },
