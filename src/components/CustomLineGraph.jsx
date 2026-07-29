@@ -20,16 +20,16 @@ const CustomLineGraph = () => {
     const date = new Date(transactionDate);
     const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
-    return `${month} ${year}`;
+    return { label: `${month} ${year}`, sortKey: year * 12 + date.getMonth() };
   };
 
   const groupData = allTransaction.reduce((acc, transaction) => {
-    const month = getMonthLabel(transaction.date);
+    const { label, sortKey } = getMonthLabel(transaction.date);
 
-    let existing = acc.find((item) => item.name === month);
+    let existing = acc.find((item) => item.name === label);
 
     if (!existing) {
-      existing = { name: month, income: 0, expenses: 0 };
+      existing = { name: label, income: 0, expenses: 0, sortKey };
       acc.push(existing);
     }
     if (transaction.type === "income") {
@@ -39,7 +39,9 @@ const CustomLineGraph = () => {
     }
     return acc;
   }, []);
-  const data = groupData.sort((a, b) => new Date(a.name) - new Date(b.name));
+  const data = groupData
+    .sort((a, b) => a.sortKey - b.sortKey)
+    .map(({ sortKey, ...rest }) => rest);
   return (
     <LineChart
       style={{
