@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import useForm from "../hooks/useForm";
 import { patchTransaction, postTransaction } from "../../helper/axios";
 import { useUser } from "../contex/UserContex";
-import { useState } from "react";
 
 const initialState = {
   type: "",
@@ -21,7 +20,7 @@ const formatDateForInput = (dateString) => {
 
 export const TransactionForm = () => {
   const { showTransaction, toggleModal, editTransaction } = useUser();
-  const [submitting, setSubmitting] = useState(false);
+
   const isEdit = Boolean(editTransaction);
   const { form, handleOnChange, setForm } = useForm(
     editTransaction
@@ -57,11 +56,10 @@ export const TransactionForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
 
     let pending;
 
-    if (editTransaction) {
+    if (isEdit) {
       const editField = {};
       for (const key in form) {
         if (form[key] !== editTransaction[key]) {

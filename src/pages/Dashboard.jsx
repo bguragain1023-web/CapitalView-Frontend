@@ -9,10 +9,9 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import CustomLineGraph from "../components/CustomLineGraph";
 import CustomBarDiagram from "../components/CustomBarDiagram";
-import { Button } from "react-bootstrap";
 
 const Dashboard = () => {
-  const { showTransaction, allTransaction, user, toggleModal } = useUser();
+  const { showTransaction, allTransaction, user } = useUser();
   const incomeTotal = allTransaction.reduce((acc, item) => {
     return item.type === "income" ? item.amount + acc : acc;
   }, 0);
@@ -33,7 +32,7 @@ const Dashboard = () => {
       )}
       {allTransaction.length ? (
         <>
-          <Container className="p-2   ">
+          <Container fluid className="p-2   ">
             <div className="balance d-flex gap-3">
               <div className="totalBalance">
                 <div className="oswald-balance">
@@ -71,6 +70,10 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+          </Container>
+
+          <Container>
+            {" "}
             <Row className="d-flex align-items-center p-1">
               <Col>
                 <div className="mt-2 d-flex justify-content-center align-items-center">
@@ -79,8 +82,7 @@ const Dashboard = () => {
               </Col>
             </Row>
           </Container>
-
-          <Container>
+          <Container fluid>
             <Row>
               <Col
                 md={6}
