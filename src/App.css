@@ -195,38 +195,41 @@ font-style: italic;
 }
 
 /* balance metrics */
+
+.topBar{
+  display: flex;
+  gap:5px;
+  font-size:2rem;
+
+  
+}
 .balance{ 
-  padding:20px;
+  flex:2;
+  padding:20px 10px;
   min-height:100%;
-  width:100%;
   text-align:center;
+  justify-content: space-between;
+}
+.estimate{
+  flex:1;
+   border-radius:30px;
+ box-shadow: 0px 10px 20px rgba(40, 39, 39, 0.633);
 }
 
-
-.totalBalance{
- 
-    color:rgba(255, 255, 255, 0.852);
- font-size:3rem;
+.totalBalance ,.incomeTotal, .expensesTotal{
+ color:rgba(255, 255, 255, 0.852);
+ font-size:2rem;
  border-radius:30px;
-  width:33%;
  box-shadow: 0px 10px 20px rgba(40, 39, 39, 0.633);
+ width:33%
  
 }
 .incomeTotal{
- 
-  color:green;
- font-size:3rem;
- border-radius:30px;
-  width:33%;
-   box-shadow: 0px 10px 20px rgba(40, 39, 39, 0.633);
+ color:green;
 }
 
 .expensesTotal{
 color: rgba(240, 26, 26, 0.892);
- font-size:3rem;
-border-radius:30px;
-width:33%;
-box-shadow: 0px 10px 20px rgba(40, 39, 39, 0.633);
 }
 
 /* piechart  */
@@ -245,12 +248,12 @@ box-shadow: 0px 10px 20px rgba(40, 39, 39, 0.633);
 
 .incomeTotal, .expensesTotal, .totalBalance{
 
- font-size:1.6rem;
+ font-size:1.2rem;
 
 }
 
 .amount-font{
-  font-size:2rem;
+  font-size:1.8rem;
   
 }
 
@@ -280,5 +283,8 @@ font-size: 0.6rem;
 
 .header{
   font-size: 2rem;
+}
+.topBar{
+  flex-direction: column;
 }
 }

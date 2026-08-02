@@ -9,6 +9,7 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import CustomLineGraph from "../components/CustomLineGraph";
 import CustomBarDiagram from "../components/CustomBarDiagram";
+import { EstimateForm } from "../components/EstimateForm";
 
 const Dashboard = () => {
   const { showTransaction, allTransaction, user } = useUser();
@@ -18,6 +19,15 @@ const Dashboard = () => {
   const expensesTotal = allTransaction.reduce((acc, item) => {
     return item.type === "expenses" ? item.amount + acc : acc;
   }, 0);
+
+  const handleOnEstimate = () => {
+    // find  total number of month of transaction
+    // find average income per month
+    // find average expeses per month
+    // calculate estimate income and expenses
+    //  find most spendind item
+    // call ai to find can save from
+  };
 
   useEffect(() => {
     showTransaction();
@@ -32,8 +42,8 @@ const Dashboard = () => {
       )}
       {allTransaction.length ? (
         <>
-          <Container fluid className="p-2   ">
-            <div className="balance d-flex gap-3">
+          <Container fluid className="p-2 topBar  ">
+            <div className=" balance d-flex gap-3">
               <div className="totalBalance">
                 <div className="oswald-balance">
                   <FcMoneyTransfer /> Balance
@@ -69,6 +79,10 @@ const Dashboard = () => {
                   {expensesTotal}
                 </div>
               </div>
+            </div>
+
+            <div className="estimate">
+              <EstimateForm />
             </div>
           </Container>
 
