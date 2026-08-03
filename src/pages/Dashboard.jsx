@@ -20,14 +20,7 @@ const Dashboard = () => {
     return item.type === "expenses" ? item.amount + acc : acc;
   }, 0);
 
-  const handleOnEstimate = () => {
-    // find  total number of month of transaction
-    // find average income per month
-    // find average expeses per month
-    // calculate estimate income and expenses
-    //  find most spendind item
-    // call ai to find can save from
-  };
+  const handleOnEstimate = () => {};
 
   useEffect(() => {
     showTransaction();
