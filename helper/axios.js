@@ -114,3 +114,15 @@ export const patchTransaction = (id, data) => {
   };
   return apiProcessor(transaction);
 };
+
+export const getEstimate = (data) => {
+  const transaction = {
+    method: "post",
+    url: baseUrl + "/estimate",
+    data,
+    headers: {
+      Authorization: getAccessJWT(),
+    },
+  };
+  return apiProcessor(transaction);
+};

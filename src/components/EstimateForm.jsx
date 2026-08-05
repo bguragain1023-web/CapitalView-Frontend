@@ -1,9 +1,18 @@
 import { Button, Form } from "react-bootstrap";
 import useForm from "../hooks/useForm";
 import { useUser } from "../contex/UserContex";
+import { getEstimate } from "../../helper/axios";
+import { useState } from "react";
 
 export const EstimateForm = () => {
-  const { showTransaction, allTransaction, user } = useUser();
+  const {
+    showTransaction,
+    allTransaction,
+    user,
+    setEstimate,
+    setLocalEstimate,
+  } = useUser();
+  const [loading, setLoading] = useState(false);
 
   const { form, handleOnChange } = useForm({ months: "" });
 
@@ -32,14 +41,7 @@ export const EstimateForm = () => {
           (totalByCatagories[t.category] || 0) + t.amount;
       });
 
-    const entries = Object.entries(totalByCatagories);
-    if (!entries.length) return null;
-
-    const [mostSpentCategory, mostSpentAmount] = entries.reduce(
-      (max, current) => (current[1] > max[1] ? current : max),
-    );
-
-    return { category: mostSpentCategory, amount: mostSpentAmount };
+    return totalByCatagories;
   };
 
   const incomeTotal = allTransaction.reduce((acc, item) => {
@@ -49,8 +51,9 @@ export const EstimateForm = () => {
     return item.type === "expenses" ? item.amount + acc : acc;
   }, 0);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const totalBalance = incomeTotal - expensesTotal;
     const numberOfMonths = getMonthsOfHistory(allTransaction);
 
@@ -65,6 +68,30 @@ export const EstimateForm = () => {
 
     const mostSpendingItem = getMostSpendingItems(allTransaction);
 
+    const estimatePayload = {
+      totalBalance,
+      numberOfMonths,
+      estimateExpenses,
+      estimateIncome,
+      estimateTotalBalance,
+      mostSpendingItem,
+      targetMOnths: form.months,
+    };
+    setLocalEstimate(estimatePayload);
+    const aiResponse = await getEstimate(estimatePayload);
+
+    if (aiResponse.status === "success") {
+      const cleanJson = aiResponse.message
+        .replace(/```json/g, "")
+        .replace(/```/g, "")
+        .trim();
+
+      const estimateData = JSON.parse(cleanJson);
+      console.log(estimateData);
+
+      setEstimate(estimateData);
+    }
+    setLoading(false);
     // call ai to find can save from
   };
 
@@ -88,8 +115,8 @@ export const EstimateForm = () => {
           </Form.Select>
         </Form.Group>
 
-        <Button variant="danger" type="submit">
-          Submit
+        <Button variant="danger" type="submit" disabled={loading}>
+          {loading ? " calculating" : "Calculate"}
         </Button>
       </Form>
     </>
