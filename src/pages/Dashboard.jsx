@@ -9,9 +9,12 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import CustomLineGraph from "../components/CustomLineGraph";
 import CustomBarDiagram from "../components/CustomBarDiagram";
+import { EstimateForm } from "../components/EstimateForm";
+import ReactMarkDown from "react-markdown";
 
 const Dashboard = () => {
-  const { showTransaction, allTransaction, user } = useUser();
+  const { showTransaction, allTransaction, user, estimate, localEstimate } =
+    useUser();
   const incomeTotal = allTransaction.reduce((acc, item) => {
     return item.type === "income" ? item.amount + acc : acc;
   }, 0);
@@ -32,8 +35,8 @@ const Dashboard = () => {
       )}
       {allTransaction.length ? (
         <>
-          <Container fluid className="p-2   ">
-            <div className="balance d-flex gap-3">
+          <Container fluid className="p-2 topBar  ">
+            <div className=" balance d-flex gap-3">
               <div className="totalBalance">
                 <div className="oswald-balance">
                   <FcMoneyTransfer /> Balance
@@ -70,6 +73,60 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+
+            <div className="estimate">
+              <EstimateForm />
+            </div>
+          </Container>
+          <Container>
+            {estimate && (
+              <div
+                className="response-box"
+                style={{
+                  lineHeight: "1.6",
+                }}
+              >
+                <div className="text-white text-center fw-bold">
+                  {localEstimate.targetMOnths} Months Estimate Balance
+                </div>
+                <div className="localEstimate d-flex bg-danger rounded p-2">
+                  <p>
+                    <strong>Estimated Balance </strong>:{""}$
+                    {localEstimate?.estimateTotalBalance}
+                  </p>
+                  <p>
+                    <strong>Estimated Income </strong>:{""}$
+                    {localEstimate?.estimateIncome}
+                  </p>
+                  <p>
+                    <strong>Estimated Expenses </strong>:{""}$
+                    {localEstimate?.estimateExpenses}
+                  </p>
+                </div>
+                <hr />
+
+                <p>
+                  <strong>Most Spending</strong>:{""}
+                  {estimate?.mostSpending?.category} ($
+                  {estimate?.mostSpending?.amount})
+                </p>
+                <p>
+                  <strong>Least Spending </strong>: {""}
+                  {estimate?.leastSpending?.category} ($
+                  {estimate?.leastSpending?.amount})
+                </p>
+
+                <p>
+                  <strong>Suggestion to reduce exepnses </strong>: {""}
+                  {estimate?.reduceExpenseSuggestion}
+                </p>
+
+                <p>
+                  <strong>Suggestion to increase Income </strong>: {""}
+                  {estimate?.increaseIncomeSuggestion}
+                </p>
+              </div>
+            )}
           </Container>
 
           <Container>

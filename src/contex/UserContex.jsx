@@ -10,6 +10,8 @@ export const UserProvider = ({ children }) => {
   const toggleModal = (value) => {
     setShow(value);
   };
+  const [estimate, setEstimate] = useState(null);
+  const [localEstimate, setLocalEstimate] = useState(null);
 
   const showTransaction = async () => {
     const { status, transaction } = await getTransaction();
@@ -27,6 +29,10 @@ export const UserProvider = ({ children }) => {
         toggleModal,
         editTransaction,
         setEditTransaction,
+        estimate,
+        setEstimate,
+        setLocalEstimate,
+        localEstimate,
       }}
     >
       {children}

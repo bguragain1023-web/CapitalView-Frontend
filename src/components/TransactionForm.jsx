@@ -8,10 +8,32 @@ import { useUser } from "../contex/UserContex";
 
 const initialState = {
   type: "",
+  category: "",
   title: "",
   amount: "",
   date: "",
 };
+const expenseCategories = [
+  { value: "groceries", label: "Groceries" },
+  { value: "rent", label: "Rent/Mortgage" },
+  { value: "utilities", label: "Utilities" },
+  { value: "transport", label: "Transport" },
+  { value: "dining", label: "Dining/Takeaway" },
+  { value: "entertainment", label: "Entertainment" },
+  { value: "health", label: "Health" },
+  { value: "shopping", label: "Shopping" },
+  { value: "insurance", label: "Insurance" },
+  { value: "education", label: "Education" },
+  { value: "other", label: "Other" },
+];
+
+const incomeCategories = [
+  { value: "salary", label: "Salary/Wages" },
+  { value: "freelance", label: "Freelance/Side income" },
+  { value: "investments", label: "Investments" },
+  { value: "gifts", label: "Gifts/Refunds" },
+  { value: "other", label: "Other" },
+];
 
 const formatDateForInput = (dateString) => {
   if (!dateString) return "";
@@ -54,6 +76,9 @@ export const TransactionForm = () => {
     },
   ];
 
+  const categoryOptions =
+    form.type === "income" ? incomeCategories : expenseCategories;
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -94,6 +119,22 @@ export const TransactionForm = () => {
             <option value="">Select</option>
             <option value="income">Income</option>
             <option value="expenses">Expenses</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="categories">
+          <Form.Label>Catagories</Form.Label>
+          <Form.Select
+            name="category"
+            onChange={handleOnChange}
+            value={form.category}
+            required
+          >
+            <option value="">Select</option>
+            {categoryOptions.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
           </Form.Select>
         </Form.Group>
         {inputFields.map((input) => (
