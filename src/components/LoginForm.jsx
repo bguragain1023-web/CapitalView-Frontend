@@ -74,7 +74,7 @@ export const LoginForm = () => {
           {isLoading ? "Submitting" : "Submit"}
         </Button>
       </Form>
-      <div className="demo-detail d-flex flex-column justify-content-center align-items-center ">
+      <div className="demo-detail d-flex flex-column justify-content-center align-items-center mt-3">
         <div>
           <mark>Demo User Login Detail</mark> <br />
         </div>

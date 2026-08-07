@@ -8,6 +8,7 @@ import { IoLogOut } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { MdAttachMoney } from "react-icons/md";
 import { useUser } from "../../contex/UserContex";
+import { GrMoney } from "react-icons/gr";
 import { useState } from "react";
 
 export const Header = () => {
@@ -23,7 +24,9 @@ export const Header = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" expanded={showMenu}>
       <Container className="p-1">
-        <Navbar.Brand href="#home">Capital view</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          <GrMoney /> Capital view
+        </Navbar.Brand>
 
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"

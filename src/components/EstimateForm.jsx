@@ -3,6 +3,7 @@ import useForm from "../hooks/useForm";
 import { useUser } from "../contex/UserContex";
 import { getEstimate } from "../../helper/axios";
 import { useState } from "react";
+import { GiArtificialIntelligence } from "react-icons/gi";
 
 export const EstimateForm = () => {
   const { allTransaction, setEstimate, setLocalEstimate } = useUser();
@@ -92,9 +93,10 @@ export const EstimateForm = () => {
     <>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label className=" text-white totalbalance">
-            Estimate Timeframe{" "}
+          <Form.Label className=" text-white oswald-balance ai-form">
+            <GiArtificialIntelligence /> AI Balance Forecast{" "}
           </Form.Label>
+
           <Form.Select
             name="months"
             onChange={handleOnChange}
@@ -102,14 +104,14 @@ export const EstimateForm = () => {
             required
           >
             <option value="">Select</option>
-            <option value={6}>6 months</option>
-            <option value={12}>1 year</option>
-            <option value={24}>2 year</option>
+            <option value={6}>6 Months</option>
+            <option value={12}>12 Months</option>
+            <option value={24}>24 Months</option>
           </Form.Select>
         </Form.Group>
 
         <Button variant="danger" type="submit" disabled={loading}>
-          {loading ? " calculating" : "Calculate"}
+          {loading ? " Estimating" : "Estimate"}
         </Button>
       </Form>
     </>
