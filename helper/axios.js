@@ -103,6 +103,8 @@ export const deleteTransaction = (data) => {
   return apiProcessor(transaction);
 };
 
+//patch transaction
+
 export const patchTransaction = (id, data) => {
   const transaction = {
     method: "patch",

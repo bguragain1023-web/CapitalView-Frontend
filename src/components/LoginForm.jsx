@@ -74,6 +74,15 @@ export const LoginForm = () => {
           {isLoading ? "Submitting" : "Submit"}
         </Button>
       </Form>
+      <div className="demo-detail d-flex flex-column justify-content-center align-items-center ">
+        <div>
+          <mark>Demo User Login Detail</mark> <br />
+        </div>
+        <div className="demobox">
+          <strong>Email</strong>: demo@user.com <br />
+          <strong>Password</strong>: aaa
+        </div>
+      </div>
     </div>
   );
 };

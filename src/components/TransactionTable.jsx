@@ -3,30 +3,25 @@ import { useUser } from "../contex/UserContex";
 import { Button, Form } from "react-bootstrap";
 import { IoMdAddCircle } from "react-icons/io";
 import { useState } from "react";
-import { useEffect } from "react";
 import { deleteTransaction } from "../../helper/axios";
 import { toast } from "react-toastify";
 
 export const TransactionTable = () => {
-  const [displayTransaction, setDisplayTransaction] = useState([]);
+  const [search, setSearch] = useState("");
   const [deleteItems, setDeleteItems] = useState([]);
   const { allTransaction, toggleModal, showTransaction, setEditTransaction } =
     useUser();
 
-  useEffect(() => {
-    setDisplayTransaction(allTransaction);
-  }, [allTransaction]);
+  const displayTransaction = allTransaction.filter(({ title }) =>
+    title.toLowerCase().includes(search.toLowerCase()),
+  );
 
   const balance = displayTransaction.reduce((acc, t) => {
     return t.type === "income" ? acc + t.amount : acc - t.amount;
   }, 0);
 
   const handleOnSearch = (e) => {
-    const { value } = e.target;
-    const searched = allTransaction.filter(({ title }) => {
-      return title.toLowerCase().includes(value.toLowerCase());
-    });
-    setDisplayTransaction(searched);
+    setSearch(e.target.value);
   };
 
   const handleOnChecked = (e) => {
@@ -81,7 +76,7 @@ export const TransactionTable = () => {
               placeholder={
                 allTransaction.length
                   ? "Search Transaction"
-                  : "No transaction available"
+                  : "No transaction at all"
               }
               type="text"
               disabled={allTransaction.length === 0}

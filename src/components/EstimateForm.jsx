@@ -5,13 +5,7 @@ import { getEstimate } from "../../helper/axios";
 import { useState } from "react";
 
 export const EstimateForm = () => {
-  const {
-    showTransaction,
-    allTransaction,
-    user,
-    setEstimate,
-    setLocalEstimate,
-  } = useUser();
+  const { allTransaction, setEstimate, setLocalEstimate } = useUser();
   const [loading, setLoading] = useState(false);
 
   const { form, handleOnChange } = useForm({ months: "" });
@@ -87,7 +81,6 @@ export const EstimateForm = () => {
         .trim();
 
       const estimateData = JSON.parse(cleanJson);
-      console.log(estimateData);
 
       setEstimate(estimateData);
     }
